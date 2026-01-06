@@ -3,9 +3,10 @@ import {
   Clock, ShieldCheck, FileCheck, Droplets, ScanEye, Wind, 
   Hammer, Building2, Skull, Waves, Warehouse, Home, 
   MapPin, AlertTriangle, CloudRain, Zap, Pipette,
-  CheckCircle2, ArrowRight, Star, Play
+  CheckCircle2, ArrowRight, Star, Play, Quote, Info, Phone,
+  ChevronDown, ChevronUp
 } from 'lucide-react';
-import { Card, Button, Badge, Accordion, StarRating } from './UI';
+import { Card, Button, Badge, Accordion, StarRating, Tooltip, Modal } from './UI';
 import { ProcessStep, ServiceItem } from '../types';
 
 // --- HERO SECTION ---
@@ -20,19 +21,19 @@ export const Hero: React.FC = () => {
                backgroundSize: '32px 32px' 
              }}>
         </div>
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-blue-100/50 to-transparent rounded-full blur-3xl opacity-60 translate-x-1/3 -translate-y-1/3" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-blue-50 to-transparent rounded-full blur-3xl opacity-40 -translate-x-1/3 translate-y-1/3" />
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-blue-100/50 to-transparent rounded-full blur-3xl opacity-60 translate-x-1/3 -translate-y-1/3 animate-float" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-blue-50 to-transparent rounded-full blur-3xl opacity-40 -translate-x-1/3 translate-y-1/3 animate-float" style={{ animationDelay: '2s' }} />
       </div>
       
       <div className="max-w-6xl mx-auto relative z-10 grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <div className="flex flex-wrap gap-3 mb-8 animate-fade-in-up">
-             <Badge text="IICRC Certified" icon={ShieldCheck} className="bg-white/80 backdrop-blur-sm" />
-             <Badge text="60-Min Response" icon={Clock} color="green" className="bg-white/80 backdrop-blur-sm" />
-             <Badge text="Direct Billing" icon={FileCheck} color="slate" className="bg-white/80 backdrop-blur-sm" />
+             <Badge text="IICRC Certified" icon={ShieldCheck} className="bg-white/80 backdrop-blur-sm shadow-sm" />
+             <Badge text="60-Min Response" icon={Clock} color="green" className="bg-white/80 backdrop-blur-sm shadow-sm" />
+             <Badge text="Direct Billing" icon={FileCheck} color="slate" className="bg-white/80 backdrop-blur-sm shadow-sm" />
           </div>
           
-          <h1 className="text-5xl lg:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.1] mb-8">
+          <h1 className="text-5xl lg:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.1] mb-8 drop-shadow-sm">
             Water Damage Restoration in <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-600">Northern Virginia</span>
           </h1>
           
@@ -42,8 +43,9 @@ export const Hero: React.FC = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 mb-12">
             <a href="tel:8774970007" className="w-full sm:w-auto">
-              <Button size="xl" icon={Clock} className="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white shadow-red-200">
-                Emergency: (877) 497-0007
+              <Button size="xl" icon={Clock} className="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white shadow-red-200 hover:shadow-red-300 relative overflow-hidden group">
+                <span className="relative z-10">Emergency: (877) 497-0007</span>
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
               </Button>
             </a>
             <Button variant="outline" size="xl" className="w-full sm:w-auto bg-white/50 backdrop-blur-sm border-2" onClick={() => document.getElementById('assessment')?.scrollIntoView({behavior: 'smooth'})}>
@@ -54,8 +56,8 @@ export const Hero: React.FC = () => {
           <div className="flex items-center gap-4 text-sm font-semibold text-slate-500">
              <div className="flex -space-x-2">
                 {[1,2,3,4].map(i => (
-                  <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center text-xs overflow-hidden">
-                    <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i+10}`} alt="User" />
+                  <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center text-xs overflow-hidden shadow-sm">
+                    <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i+10}`} alt="User" className="w-full h-full object-cover" />
                   </div>
                 ))}
              </div>
@@ -75,8 +77,8 @@ export const Hero: React.FC = () => {
         <div className="hidden lg:block relative">
            {/* Abstract visual representation of service - clean, technical */}
            <div className="relative z-10 grid grid-cols-2 gap-4">
-              <div className="space-y-4 pt-12">
-                 <Card className="bg-white/90 backdrop-blur" noPadding>
+              <div className="space-y-4 pt-12 animate-float" style={{ animationDelay: '1s' }}>
+                 <Card className="bg-white/90 backdrop-blur transition-all hover:scale-[1.02]" noPadding>
                     <div className="p-6">
                       <div className="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center text-primary mb-4">
                         <Droplets className="w-6 h-6" />
@@ -85,7 +87,7 @@ export const Hero: React.FC = () => {
                       <p className="text-sm text-slate-500">Powerful truck-mounted removal</p>
                     </div>
                  </Card>
-                 <Card className="bg-white/90 backdrop-blur" noPadding>
+                 <Card className="bg-white/90 backdrop-blur transition-all hover:scale-[1.02]" noPadding>
                     <div className="p-6">
                       <div className="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center text-indigo-600 mb-4">
                         <Wind className="w-6 h-6" />
@@ -95,17 +97,20 @@ export const Hero: React.FC = () => {
                     </div>
                  </Card>
               </div>
-              <div className="space-y-4">
-                 <Card className="bg-primary text-white shadow-primary/30 shadow-xl border-none" noPadding>
+              <div className="space-y-4 animate-float" style={{ animationDelay: '2.5s' }}>
+                 <Card className="bg-primary text-white shadow-primary/30 shadow-xl border-none transition-all hover:scale-[1.02]" noPadding>
                     <div className="p-6">
-                      <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-white mb-4">
-                        <Clock className="w-6 h-6" />
+                      <div className="flex justify-between items-start">
+                        <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-white mb-4">
+                          <Clock className="w-6 h-6 animate-pulse" />
+                        </div>
+                        <div className="px-2 py-1 bg-white/20 rounded-full text-[10px] font-bold uppercase tracking-wider">Live</div>
                       </div>
                       <h3 className="font-bold text-lg mb-1">24/7 Response</h3>
                       <p className="text-sm text-white/80">We arrive in 60 minutes or less</p>
                     </div>
                  </Card>
-                 <Card className="bg-white/90 backdrop-blur" noPadding>
+                 <Card className="bg-white/90 backdrop-blur transition-all hover:scale-[1.02]" noPadding>
                     <div className="p-6">
                       <div className="w-12 h-12 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-600 mb-4">
                         <ShieldCheck className="w-6 h-6" />
@@ -126,11 +131,11 @@ export const Hero: React.FC = () => {
 export const Introduction: React.FC = () => {
   return (
     <section id="intro" className="py-20 px-4 lg:px-12 max-w-7xl mx-auto">
-      <div className="bg-white rounded-[48px] p-8 lg:p-16 shadow-xl border border-slate-100 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-primary to-blue-300"></div>
+      <div className="bg-white rounded-[48px] p-8 lg:p-16 shadow-xl border border-slate-100 relative overflow-hidden group">
+        <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-primary to-blue-300 group-hover:w-3 transition-all duration-300"></div>
         <div className="grid lg:grid-cols-5 gap-12 items-center">
            <div className="lg:col-span-3">
-              <h2 className="text-3xl font-bold mb-6 text-slate-900">Water damage doesn't wait for convenient times.</h2>
+              <h2 className="text-3xl font-bold mb-6 text-slate-900 leading-tight">Water damage doesn't wait for convenient times.</h2>
               <div className="prose prose-lg text-slate-600 space-y-4">
                 <p>
                   Whether from a burst pipe, appliance failure, sewage backup, or storm flooding, water intrusion causes progressive damage to your Northern Virginia home. Within hours, water saturates flooring, drywall, and insulation. Within days, mold begins growing in damp areas. 
@@ -143,29 +148,38 @@ export const Introduction: React.FC = () => {
                 </p>
               </div>
            </div>
-           <div className="lg:col-span-2 bg-slate-50 rounded-3xl p-8 border border-slate-100">
+           <div className="lg:col-span-2 bg-slate-50 rounded-3xl p-8 border border-slate-100 hover:border-blue-200 transition-colors">
               <h3 className="text-lg font-bold mb-4 flex items-center">
                 <AlertTriangle className="w-5 h-5 text-red-500 mr-2" />
                 Why Speed Matters
               </h3>
-              <ul className="space-y-4">
+              <ul className="space-y-6">
                 <li className="flex items-start">
-                  <div className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 font-bold text-xs shrink-0 mr-3">1h</div>
-                  <p className="text-sm text-slate-600">Water spreads, saturating porous materials like drywall and pad.</p>
+                  <div className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-primary font-black text-sm shrink-0 mr-4 shadow-sm">1h</div>
+                  <div>
+                    <p className="text-sm font-bold text-slate-900 mb-1">Saturation Begins</p>
+                    <p className="text-xs text-slate-600">Water spreads, saturating porous materials like drywall and pad.</p>
+                  </div>
                 </li>
                 <li className="flex items-start">
-                  <div className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 font-bold text-xs shrink-0 mr-3">24h</div>
-                  <p className="text-sm text-slate-600">Microbial growth can begin. Furniture stains appear on carpets.</p>
+                  <div className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-primary font-black text-sm shrink-0 mr-4 shadow-sm">24h</div>
+                  <div>
+                    <p className="text-sm font-bold text-slate-900 mb-1">Microbial Growth</p>
+                    <p className="text-xs text-slate-600">Bacteria multiplies. Furniture stains appear on carpets.</p>
+                  </div>
                 </li>
                 <li className="flex items-start">
-                  <div className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-700 font-bold text-xs shrink-0 mr-3">48h+</div>
-                  <p className="text-sm text-slate-600">Mold growth becomes likely. Structural integrity may be compromised.</p>
+                  <div className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-500 font-black text-sm shrink-0 mr-4 shadow-sm">48h+</div>
+                  <div>
+                    <p className="text-sm font-bold text-slate-900 mb-1">Mold Danger</p>
+                    <p className="text-xs text-slate-600">Mold growth becomes likely. Structural integrity may be compromised.</p>
+                  </div>
                 </li>
               </ul>
               <div className="mt-8 pt-6 border-t border-slate-200">
-                <a href="tel:8774970007" className="flex items-center justify-between text-primary font-bold hover:underline group">
+                <a href="tel:8774970007" className="flex items-center justify-between text-primary font-bold hover:underline group/link">
                    Call for Immediate Help
-                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                   <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
                 </a>
               </div>
            </div>
@@ -177,24 +191,29 @@ export const Introduction: React.FC = () => {
 
 // --- EMERGENCY SERVICES ---
 export const EmergencyServices: React.FC = () => {
+  const [activeFeature, setActiveFeature] = React.useState<number | null>(null);
+
   const features = [
     {
       title: "Immediate Extraction",
       icon: Droplets,
       desc: "Truck-mounted units & submersible pumps remove hundreds of gallons per hour.",
-      points: ["Basement flooding", "Carpet & pad extraction", "Hardwood salvage"]
+      points: ["Basement flooding", "Carpet & pad extraction", "Hardwood salvage"],
+      extendedInfo: "Standing water is the primary cause of structural instability. Rapid extraction reduces drying time by up to 50%."
     },
     {
       title: "Moisture Detection",
       icon: ScanEye,
       desc: "Hidden moisture causes long-term damage. We find it all.",
-      points: ["Thermal imaging", "Penetrating meters", "Humidity tracking"]
+      points: ["Thermal imaging", "Penetrating meters", "Humidity tracking"],
+      extendedInfo: "Water can travel invisibly behind walls and under floors. Our thermal detection ensures we find every pocket of moisture."
     },
     {
       title: "Structural Drying",
       icon: Wind,
       desc: "Industrial LGR dehumidifiers and air movers accelerate evaporation.",
-      points: ["Wall cavity injection", "Desiccant drying", "Daily monitoring"]
+      points: ["Wall cavity injection", "Desiccant drying", "Daily monitoring"],
+      extendedInfo: "Passive drying isn't enough. Our industrial systems force evaporation, preventing mold spores from germinating."
     }
   ];
 
@@ -211,25 +230,81 @@ export const EmergencyServices: React.FC = () => {
 
         <div className="grid md:grid-cols-3 gap-8">
           {features.map((f, i) => (
-            <Card key={i} className="h-full group" variant="elevated">
-              <div className="w-16 h-16 bg-primary-light rounded-[20px] flex items-center justify-center text-primary mb-8 group-hover:scale-110 transition-transform duration-300 shadow-sm">
+            <Card key={i} className="h-full group hover:border-primary/30 hover:shadow-primary/5 transition-all duration-300 flex flex-col" variant="elevated">
+              <div className="w-16 h-16 bg-primary-light rounded-[20px] flex items-center justify-center text-primary mb-8 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-sm group-hover:bg-primary group-hover:text-white">
                 <f.icon className="w-8 h-8" />
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">{f.title}</h3>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-primary transition-colors">{f.title}</h3>
               <p className="text-slate-600 mb-8 leading-relaxed">{f.desc}</p>
-              <div className="border-t border-slate-100 pt-6">
+              <div className="border-t border-slate-100 pt-6 mb-6 flex-grow">
                 <ul className="space-y-3">
                   {f.points.map((p, j) => (
                     <li key={j} className="flex items-center text-sm font-semibold text-slate-700">
-                      <CheckCircle2 className="w-4 h-4 text-primary mr-3 shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-green-500 mr-3 shrink-0" />
                       {p}
                     </li>
                   ))}
                 </ul>
               </div>
+              <div className="pt-2">
+                 <Button variant="tonal" fullWidth onClick={() => setActiveFeature(i)}>Learn More</Button>
+              </div>
             </Card>
           ))}
         </div>
+
+        <Modal 
+          isOpen={activeFeature !== null} 
+          onClose={() => setActiveFeature(null)}
+          title={activeFeature !== null ? features[activeFeature].title : ''}
+        >
+          {activeFeature !== null && (
+            <div className="space-y-8">
+               {/* Icon and intro */}
+               <div className="flex items-start gap-5">
+                  <div className="w-16 h-16 bg-primary-light rounded-2xl flex items-center justify-center text-primary shrink-0">
+                     {React.createElement(features[activeFeature].icon, { size: 32 })}
+                  </div>
+                  <p className="text-slate-600 font-medium text-lg leading-relaxed">{features[activeFeature].desc}</p>
+               </div>
+               
+               {/* Extended Details */}
+               <div>
+                 <h4 className="font-bold text-slate-900 mb-4 text-lg">Key Service Features</h4>
+                 <ul className="space-y-4">
+                   {features[activeFeature].points.map((p, j) => (
+                      <li key={j} className="flex items-center text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <CheckCircle2 className="w-5 h-5 text-green-500 mr-3 shrink-0" />
+                        <span className="font-semibold">{p}</span>
+                      </li>
+                   ))}
+                 </ul>
+               </div>
+
+               <div className="bg-blue-50 p-6 rounded-2xl border border-blue-100 relative overflow-hidden">
+                 <div className="absolute top-0 right-0 w-20 h-20 bg-blue-100 rounded-full translate-x-1/3 -translate-y-1/3 blur-xl"></div>
+                 <div className="relative z-10">
+                   <h4 className="font-bold text-blue-900 mb-2 flex items-center">
+                      <Info className="w-4 h-4 mr-2" />
+                      Why this matters
+                   </h4>
+                   <p className="text-blue-800 leading-relaxed">
+                     {features[activeFeature].extendedInfo}
+                   </p>
+                 </div>
+               </div>
+
+               <div className="pt-2">
+                 <Button size="lg" fullWidth onClick={() => {
+                    setActiveFeature(null);
+                    document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'});
+                 }}>
+                    Request This Service
+                 </Button>
+               </div>
+            </div>
+          )}
+        </Modal>
       </div>
     </section>
   );
@@ -253,7 +328,7 @@ export const RestorationServices: React.FC = () => {
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Residential Card - Large */}
-          <Card className="lg:col-span-2 bg-gradient-to-br from-blue-50/50 to-white border-blue-100" title="Residential Restoration" subtitle="Home Services">
+          <Card className="lg:col-span-2 bg-gradient-to-br from-blue-50/50 to-white border-blue-100 hover:shadow-blue-200/50" title="Residential Restoration" subtitle="Home Services">
             <div className="grid sm:grid-cols-2 gap-x-12 gap-y-10">
               <div>
                 <h4 className="font-bold text-slate-900 flex items-center mb-4 text-lg">
@@ -262,7 +337,7 @@ export const RestorationServices: React.FC = () => {
                 <ul className="space-y-3">
                   {['Carpet & Flooring replacement', 'Drywall & plaster repair', 'Trim restoration', 'Furniture cleaning'].map((item, i) => (
                      <li key={i} className="flex items-center text-slate-600 text-sm">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-300 mr-2.5" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mr-2.5" />
                         {item}
                      </li>
                   ))}
@@ -275,7 +350,7 @@ export const RestorationServices: React.FC = () => {
                 <ul className="space-y-3">
                   {['Complete extraction', 'Sump pump evaluation', 'Foundation assessment', 'Vapor barriers'].map((item, i) => (
                      <li key={i} className="flex items-center text-slate-600 text-sm">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-300 mr-2.5" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mr-2.5" />
                         {item}
                      </li>
                   ))}
@@ -288,7 +363,7 @@ export const RestorationServices: React.FC = () => {
                 <ul className="space-y-3">
                   {['Cabinet drying & restoration', 'Tile & Grout restoration', 'Under-sink repairs', 'Appliance inspection'].map((item, i) => (
                      <li key={i} className="flex items-center text-slate-600 text-sm">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-300 mr-2.5" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mr-2.5" />
                         {item}
                      </li>
                   ))}
@@ -299,7 +374,7 @@ export const RestorationServices: React.FC = () => {
 
           {/* Side Stack */}
           <div className="space-y-8">
-            <Card className="h-full flex flex-col justify-center border-l-4 border-l-indigo-500" variant="elevated">
+            <Card className="h-full flex flex-col justify-center border-l-4 border-l-indigo-500 hover:shadow-indigo-200/50" variant="elevated">
               <div className="flex items-start mb-6">
                 <div className="p-4 bg-indigo-50 rounded-2xl text-indigo-600 mr-5 shadow-sm">
                   <Building2 className="w-8 h-8" />
@@ -314,7 +389,7 @@ export const RestorationServices: React.FC = () => {
               </p>
             </Card>
             
-            <Card className="h-full flex flex-col justify-center border-l-4 border-l-red-500 bg-red-50/30" variant="elevated">
+            <Card className="h-full flex flex-col justify-center border-l-4 border-l-red-500 bg-red-50/30 hover:shadow-red-200/50" variant="elevated">
               <div className="flex items-start mb-6">
                 <div className="p-4 bg-red-100 rounded-2xl text-red-600 mr-5 shadow-sm">
                   <Skull className="w-8 h-8" />
@@ -372,12 +447,42 @@ export const WhyChooseUs: React.FC = () => {
 // --- PROCESS ---
 export const Process: React.FC = () => {
   const steps = [
-    { num: 1, title: "Dispatch", text: "24/7 immediate response from our local center." },
-    { num: 2, title: "Inspection", text: "Thermal mapping and damage assessment." },
-    { num: 3, title: "Extraction", text: "Removal of standing water to stop damage." },
-    { num: 4, title: "Drying", text: "3-5 days of monitored dehumidification." },
-    { num: 5, title: "Cleaning", text: "HEPA vacuuming and antimicrobial treatment." },
-    { num: 6, title: "Repairs", text: "Reconstruction to pre-loss condition." },
+    { 
+      num: 1, 
+      title: "Dispatch", 
+      text: "24/7 immediate response from our local center.",
+      details: ["Live dispatcher (no bots)", "Crew routed instantly", "Emergency guidance"]
+    },
+    { 
+      num: 2, 
+      title: "Inspection", 
+      text: "Thermal mapping and damage assessment.",
+      details: ["Infrared camera scanning", "Moisture mapping", "Water category check", "Photo documentation"]
+    },
+    { 
+      num: 3, 
+      title: "Extraction", 
+      text: "Removal of standing water to stop damage.",
+      details: ["Truck-mounted units", "Submersible pumps", "Carpet extraction", "Furniture protection"]
+    },
+    { 
+      num: 4, 
+      title: "Drying", 
+      text: "3-5 days of monitored dehumidification.",
+      details: ["LGR Dehumidifiers", "High-velocity air movers", "Daily monitoring", "Psychrometric tracking"]
+    },
+    { 
+      num: 5, 
+      title: "Cleaning", 
+      text: "HEPA vacuuming and antimicrobial treatment.",
+      details: ["Anti-microbial spray", "HEPA vacuuming", "Odor removal", "Contents cleaning"]
+    },
+    { 
+      num: 6, 
+      title: "Repairs", 
+      text: "Reconstruction to pre-loss condition.",
+      details: ["Drywall installation", "Flooring replacement", "Painting", "Final walkthrough"]
+    },
   ];
 
   return (
@@ -390,28 +495,36 @@ export const Process: React.FC = () => {
         
         <div className="relative">
           {/* Connecting Line (Desktop) */}
-          <div className="hidden lg:block absolute top-12 left-0 right-0 h-0.5 bg-slate-100 -z-10"></div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8">
+          <div className="hidden lg:block absolute top-12 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-slate-100 to-transparent -z-10"></div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-8">
             {steps.map((step) => (
-              <div key={step.num} className="relative group bg-white rounded-3xl p-6 hover:bg-surface transition-colors">
-                <div className="flex items-center mb-6">
-                  <div className="w-24 h-24 rounded-3xl bg-white border-2 border-slate-100 flex items-center justify-center font-black text-4xl text-slate-200 shadow-sm group-hover:border-primary group-hover:text-primary group-hover:scale-110 transition-all duration-300">
+              <div key={step.num} className="relative group bg-white rounded-3xl p-8 hover:bg-surface transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-slate-100">
+                <div className="flex items-center mb-6 relative">
+                  <div className="w-20 h-20 rounded-full bg-white border-4 border-slate-50 flex items-center justify-center font-black text-3xl text-slate-300 shadow-sm group-hover:border-primary group-hover:text-primary group-hover:scale-110 transition-all duration-300 z-10">
                     {step.num}
                   </div>
-                  {/* Small connector for mobile */}
-                  <div className="h-0.5 bg-slate-200 flex-1 ml-4 lg:hidden"></div>
+                  {/* Visual connector overlay */}
+                  <div className="hidden lg:block absolute left-10 top-1/2 w-full h-1 bg-primary/0 group-hover:bg-primary/10 transition-colors -z-10 origin-left scale-x-150"></div>
                 </div>
                 
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{step.title}</h3>
-                <p className="text-slate-600 leading-relaxed">{step.text}</p>
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">{step.title}</h3>
+                <Tooltip content={
+                  <ul className="list-disc list-inside space-y-1">
+                    {step.details.map((d, i) => <li key={i}>{d}</li>)}
+                  </ul>
+                }>
+                  <p className="text-slate-600 leading-relaxed cursor-help decoration-dotted underline decoration-slate-300 underline-offset-4 hover:text-slate-900 hover:decoration-primary transition-colors">
+                    {step.text}
+                  </p>
+                </Tooltip>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="mt-16 text-center">
-          <Button onClick={() => document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'})} size="lg">
+        <div className="mt-20 text-center">
+          <Button onClick={() => document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'})} size="lg" className="shadow-xl shadow-primary/20">
              Start Your Recovery Now
           </Button>
         </div>
@@ -433,8 +546,8 @@ export const CommonCauses: React.FC = () => {
               { icon: Zap, title: "Appliance Failures", sub: "Washing machines & heaters" },
               { icon: Warehouse, title: "Sewer Backup", sub: "Tree roots & clogs" }
           ].map((item, i) => (
-              <div key={i} className="flex flex-col items-center text-center p-8 bg-white rounded-[32px] shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                  <div className="w-16 h-16 bg-slate-50 rounded-full mb-6 flex items-center justify-center text-slate-600">
+              <div key={i} className="flex flex-col items-center text-center p-8 bg-white rounded-[32px] shadow-sm border border-slate-100 hover:shadow-lg hover:border-blue-200 transition-all duration-300 hover:-translate-y-1 group cursor-default">
+                  <div className="w-16 h-16 bg-slate-50 rounded-full mb-6 flex items-center justify-center text-slate-600 group-hover:bg-red-50 group-hover:text-red-500 transition-colors">
                       <item.icon className="w-7 h-7" />
                   </div>
                   <h3 className="text-lg font-bold text-slate-900 mb-1">{item.title}</h3>
@@ -447,46 +560,74 @@ export const CommonCauses: React.FC = () => {
   );
 }
 
+// --- SERVICE AREAS CARD ---
+const ServiceAreaCard: React.FC<{ title: string; cities: string[] }> = ({ title, cities }) => {
+  const [isExpanded, setIsExpanded] = React.useState(false);
+  const LIMIT = 8;
+  const shouldTruncate = cities.length > LIMIT;
+  const visibleCities = isExpanded ? cities : cities.slice(0, LIMIT);
+
+  return (
+     <Card className="bg-white hover:border-orange-200 hover:shadow-md transition-all duration-300 group" variant="outlined" noPadding>
+       <div className="p-6">
+         <div className="flex items-center mb-3">
+            <div className="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center text-orange-600 mr-4 shrink-0 transition-colors group-hover:bg-orange-100">
+               <MapPin className="w-5 h-5" />
+            </div>
+            <h3 className="font-bold text-slate-900 text-lg leading-tight">{title}</h3>
+         </div>
+         <div className="pl-14">
+            <div className="flex flex-wrap gap-x-2 gap-y-1 leading-relaxed">
+              {visibleCities.map((city, i) => (
+                <span key={i} className="text-sm text-slate-600 font-medium flex items-center">
+                   {city}{i < visibleCities.length - 1 ? <span className="text-slate-300 mx-2">•</span> : ""}
+                </span>
+              ))}
+              {!isExpanded && shouldTruncate && <span className="text-sm text-slate-400 font-medium ml-1">...</span>}
+            </div>
+            
+            {shouldTruncate && (
+              <button 
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="mt-3 text-xs font-bold text-orange-600 hover:text-orange-700 flex items-center transition-colors focus:outline-none"
+              >
+                {isExpanded ? (
+                  <>Show less <ChevronUp className="w-3 h-3 ml-1" /></>
+                ) : (
+                  <>Show {cities.length - LIMIT} more <ChevronDown className="w-3 h-3 ml-1" /></>
+                )}
+              </button>
+            )}
+         </div>
+       </div>
+     </Card>
+  );
+};
+
 // --- SERVICE AREAS & FAQ ---
 export const InfoSections: React.FC = () => {
-  const areas = [
+  const areaData = [
     { 
       title: "Fairfax County", 
-      icon: MapPin,
-      content: (
-        <div className="grid grid-cols-2 gap-2 text-sm">
-          {["Fairfax City", "Vienna", "Great Falls", "McLean", "Tysons Corner", "Reston", "Herndon", "Centreville", "Chantilly", "Burke", "Springfield", "Annandale", "Falls Church"].map(c => (
-            <span key={c} className="flex items-center"><div className="w-1 h-1 bg-primary rounded-full mr-2"></div>{c}</span>
-          ))}
-        </div>
-      ) 
+      cities: ["Fairfax City", "Vienna", "Great Falls", "McLean", "Tysons Corner", "Reston", "Herndon", "Centreville", "Chantilly", "Burke", "Springfield", "Annandale", "Falls Church"]
     },
     { 
       title: "Arlington & Alexandria", 
-      icon: MapPin,
-      content: (
-        <div className="grid grid-cols-2 gap-2 text-sm">
-          {["Ballston", "Clarendon", "Rosslyn", "Crystal City", "Shirlington", "Old Town", "Del Ray", "Landmark"].map(c => (
-            <span key={c} className="flex items-center"><div className="w-1 h-1 bg-primary rounded-full mr-2"></div>{c}</span>
-          ))}
-        </div>
-      )
+      cities: ["Ballston", "Clarendon", "Rosslyn", "Crystal City", "Shirlington", "Old Town", "Del Ray", "Landmark"]
     },
     { 
       title: "Loudoun & Prince William",
-      icon: MapPin, 
-      content: "Leesburg, Ashburn, Sterling, South Riding, Manassas, Woodbridge, Gainesville" 
+      cities: ["Leesburg", "Ashburn", "Sterling", "South Riding", "Manassas", "Woodbridge", "Gainesville"]
     },
     { 
       title: "DC & Maryland", 
-      icon: MapPin,
-      content: "All DC neighborhoods, Bethesda, Silver Spring, Rockville" 
+      cities: ["All DC neighborhoods", "Bethesda", "Silver Spring", "Rockville"]
     }
   ];
 
   const faqs = [
     { title: "How quickly can you respond?", content: "Our average response time is 60 minutes. We maintain 24/7 emergency crews throughout Northern Virginia and dispatch immediately upon receiving your call." },
-    { title: "Does insurance cover water damage?", content: "Most homeowner policies cover sudden/accidental damage (burst pipes, appliances). Flood damage (rising water) usually requires flood insurance. We help document everything for your claim." },
+    { title: "Does insurance cover water damage?", content: "Most homeowner policies cover sudden and accidental water damage (burst pipes, appliances). Flood damage (rising water) usually requires flood insurance. We help document everything for your claim." },
     { title: "How long does restoration take?", content: "Extraction: 1-4 hours. Drying: 3-5 days. Reconstruction: 1-4 weeks depending on severity. Minor damage may be complete in 4-5 days." },
     { title: "Can you prevent mold?", content: "Yes. Rapid response and proper drying prevent mold growth. If we dry your property within 24-48 hours, mold growth is prevented. We also apply antimicrobial treatments." },
     { title: "Do you offer 24/7 service?", content: "Yes. True 24/7/365 emergency response. Live dispatchers answer calls at all hours." },
@@ -499,11 +640,12 @@ export const InfoSections: React.FC = () => {
         <div className="lg:col-span-5">
           <Badge text="Service Area" className="mb-4" color="orange" />
           <h2 className="text-3xl font-bold text-slate-900 mb-8">Where We Serve</h2>
-          <Card className="bg-orange-50/50 border-orange-100" noPadding>
-            <div className="p-2">
-              <Accordion items={areas} />
-            </div>
-          </Card>
+          
+          <div className="space-y-4">
+            {areaData.map((area, index) => (
+               <ServiceAreaCard key={index} title={area.title} cities={area.cities} />
+            ))}
+          </div>
         </div>
         <div className="lg:col-span-7">
           <Badge text="Common Questions" className="mb-4" />
@@ -517,86 +659,150 @@ export const InfoSections: React.FC = () => {
 
 // --- TESTIMONIALS ---
 export const Testimonials: React.FC = () => {
+  const reviews = [
+    {
+      quote: "Flood Doctor arrived within 45 minutes of my call on a Sunday morning. They were professional, reassuring, and saved my hardwood floors from complete ruin.",
+      author: "Sarah Jenkins",
+      location: "Fairfax, VA",
+      rating: 5
+    },
+    {
+      quote: "I was panicked when my basement flooded. The team handled everything including talking to my insurance adjuster. Highly recommended service.",
+      author: "Michael Ross",
+      location: "Arlington, VA",
+      rating: 5
+    },
+    {
+      quote: "Professional, clean, and efficient. They explained every step of the drying process. The thermal imaging technology was impressive.",
+      author: "David Chen",
+      location: "McLean, VA",
+      rating: 5
+    }
+  ];
+
   return (
-    <section id="testimonials" className="py-24 px-4 lg:px-12 bg-white border-t border-slate-100">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-slate-900 mb-16 text-center">What Our Clients Say</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-              <Card className="bg-surface hover:bg-white" variant="outlined">
-                  <div className="mb-4">
-                    <StarRating rating={5} />
-                  </div>
-                  <p className="text-lg text-slate-700 mb-6 italic leading-relaxed">"Our basement flooded during a storm, and Flood Doctor had a crew there within an hour. They worked through the night to extract the water and saved our finished basement."</p>
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-primary font-bold mr-3">TH</div>
-                    <div>
-                      <p className="font-bold text-slate-900 text-sm">Thomas H.</p>
-                      <p className="text-xs text-slate-500">McLean, VA</p>
-                    </div>
-                  </div>
-              </Card>
-              <Card className="bg-surface hover:bg-white" variant="outlined">
-                  <div className="mb-4">
-                    <StarRating rating={5} />
-                  </div>
-                  <p className="text-lg text-slate-700 mb-6 italic leading-relaxed">"A pipe burst while we were on vacation. Flood Doctor handled everything—the water removal, the drying, the insurance claim, and the repairs. Highly recommend."</p>
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-primary font-bold mr-3">PW</div>
-                    <div>
-                      <p className="font-bold text-slate-900 text-sm">Patricia W.</p>
-                      <p className="text-xs text-slate-500">Reston, VA</p>
-                    </div>
-                  </div>
-              </Card>
+    <section id="testimonials" className="py-24 px-4 lg:px-12 bg-slate-50">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-16 max-w-3xl mx-auto">
+          <Badge text="Customer Reviews" color="green" className="mb-4" />
+          <h2 className="text-4xl font-extrabold text-slate-900 mb-6">Trusted by Your Neighbors</h2>
+          <div className="flex justify-center items-center gap-2 mb-4">
+             <div className="flex text-yellow-400 gap-1">
+               <StarRating rating={5} />
+             </div>
+             <span className="font-bold text-slate-700 ml-2">5.0/5.0 Average Rating</span>
           </div>
         </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {reviews.map((review, i) => (
+            <Card key={i} className="h-full flex flex-col" variant="elevated">
+              <div className="flex mb-4 text-yellow-400">
+                <StarRating rating={review.rating} />
+              </div>
+              <p className="text-slate-700 text-lg leading-relaxed italic mb-6 flex-grow">"{review.quote}"</p>
+              <div className="mt-auto flex items-center pt-4 border-t border-slate-100">
+                <div className="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-500 mr-3">
+                  {review.author.charAt(0)}
+                </div>
+                <div>
+                  <p className="font-bold text-slate-900">{review.author}</p>
+                  <p className="text-xs text-slate-500 font-bold uppercase tracking-wide">{review.location}</p>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+        
+        <div className="mt-12 text-center">
+          <a href="#" className="inline-flex items-center font-bold text-primary hover:text-primary-dark transition-colors">
+            See all 500+ reviews on Google <ArrowRight className="w-4 h-4 ml-2" />
+          </a>
+        </div>
+      </div>
     </section>
   );
 };
 
-// --- FOOTER ---
+// --- FOOTER / CONTACT ---
 export const Footer: React.FC = () => {
   return (
-    <footer id="contact" className="bg-slate-950 text-white pt-24 pb-24 px-4 lg:px-12 rounded-t-[64px] relative overflow-hidden">
-        {/* Footer glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/20 blur-[100px] rounded-full pointer-events-none"></div>
+    <footer id="contact" className="bg-slate-900 text-white pt-24 pb-12 px-4 lg:px-12 lg:rounded-t-[80px] rounded-t-[48px] -mx-2 lg:-mx-4 shadow-[0_-10px_40px_-10px_rgba(0,0,0,0.5)] mt-12 relative overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-primary rounded-full blur-[120px] opacity-10 pointer-events-none"></div>
 
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-            <Badge text="Emergency Response" className="bg-red-500/10 text-red-300 border-red-500/20 mb-8" icon={AlertTriangle} />
-            <h2 className="text-5xl lg:text-7xl font-bold mb-8 tracking-tighter">Water Damage<br/>Worsens Every Hour</h2>
-            <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto">Don't wait until mold begins to grow. Our emergency crews are ready 24/7 to save your home.</p>
-            
-            <a href="tel:8774970007" className="inline-block mb-16 group">
-                <Button size="xl" className="bg-white text-slate-950 hover:bg-blue-50 text-xl px-12 py-6 h-auto shadow-2xl shadow-blue-900/50">
-                    Call (877) 497-0007
-                </Button>
-                <p className="mt-4 text-sm text-slate-500 font-medium group-hover:text-white transition-colors">Average response time: 60 minutes</p>
-            </a>
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 mb-16 relative z-10">
+        <div>
+           <div className="mb-8">
+             <h2 className="text-3xl font-extrabold mb-2">Flood Doctor <span className="text-primary">LLC</span></h2>
+             <p className="text-slate-400">Restoring homes and lives since 2010.</p>
+           </div>
+           
+           <div className="space-y-8">
+             <div className="flex items-start group">
+               <div className="w-12 h-12 bg-slate-800 rounded-2xl flex items-center justify-center text-primary shrink-0 mr-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                 <Phone className="w-6 h-6" />
+               </div>
+               <div>
+                 <p className="text-sm text-slate-400 font-bold uppercase tracking-wider mb-1">24/7 Emergency Line</p>
+                 <a href="tel:8774970007" className="text-3xl font-bold hover:text-primary transition-colors block">(877) 497-0007</a>
+                 <p className="text-xs text-green-400 mt-2 flex items-center font-bold tracking-wide"><span className="w-2 h-2 rounded-full bg-green-400 mr-2 animate-pulse"></span>LIVE DISPATCH AVAILABLE</p>
+               </div>
+             </div>
+             
+             <div className="flex items-start group">
+               <div className="w-12 h-12 bg-slate-800 rounded-2xl flex items-center justify-center text-primary shrink-0 mr-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                 <MapPin className="w-6 h-6" />
+               </div>
+               <div>
+                 <p className="text-sm text-slate-400 font-bold uppercase tracking-wider mb-1">Service Area</p>
+                 <p className="text-lg font-medium leading-snug">Fairfax, Loudoun, Prince William, Arlington, Alexandria, Washington DC, & Maryland.</p>
+               </div>
+             </div>
 
-            <div className="grid md:grid-cols-3 gap-12 text-sm text-slate-400 border-t border-slate-800 pt-12">
-                <div className="text-center md:text-left">
-                    <h4 className="text-white font-bold mb-4 text-lg">Flood Doctor LLC</h4>
-                    <p className="leading-relaxed">8466D Tyco Rd<br/>Vienna, VA 22182</p>
-                    <p className="mt-2 text-slate-500">DPOR #2705155505</p>
-                </div>
-                <div className="text-center">
-                    <h4 className="text-white font-bold mb-4 text-lg">Certifications</h4>
-                    <div className="flex flex-col gap-2 items-center">
-                      <span className="bg-slate-900 border border-slate-800 px-3 py-1 rounded-full">IICRC Certified Firm</span>
-                      <span className="bg-slate-900 border border-slate-800 px-3 py-1 rounded-full">Licensed & Insured</span>
-                    </div>
-                </div>
-                <div className="text-center md:text-right">
-                    <h4 className="text-white font-bold mb-4 text-lg">Hours</h4>
-                    <p className="font-semibold text-white">24/7 Emergency Service</p>
-                    <p>365 Days a Year</p>
-                </div>
-            </div>
-            
-            <div className="mt-16 text-slate-600 text-xs">
-              © {new Date().getFullYear()} Flood Doctor LLC. All rights reserved.
-            </div>
+             <div className="flex items-start group">
+               <div className="w-12 h-12 bg-slate-800 rounded-2xl flex items-center justify-center text-primary shrink-0 mr-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                 <FileCheck className="w-6 h-6" />
+               </div>
+               <div>
+                 <p className="text-sm text-slate-400 font-bold uppercase tracking-wider mb-1">Credentials</p>
+                 <p className="text-slate-300">Class A Contractor License</p>
+                 <p className="text-slate-300">IICRC Certified Firm</p>
+               </div>
+             </div>
+           </div>
         </div>
+
+        <div className="bg-white/5 backdrop-blur-sm p-8 rounded-3xl border border-white/10 shadow-2xl">
+          <h3 className="text-xl font-bold mb-6">Request a Callback</h3>
+          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-400 ml-1">Name</label>
+                <input type="text" className="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-primary focus:bg-slate-800 transition-colors" />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-400 ml-1">Phone</label>
+                <input type="tel" className="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-primary focus:bg-slate-800 transition-colors" />
+              </div>
+            </div>
+            <div className="space-y-1">
+               <label className="text-xs font-bold text-slate-400 ml-1">Message</label>
+               <textarea rows={4} className="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-primary focus:bg-slate-800 transition-colors resize-none"></textarea>
+            </div>
+            <Button fullWidth size="lg" className="bg-primary hover:bg-primary-dark border-none">Send Request</Button>
+            <p className="text-[10px] text-slate-500 text-center mt-2">By submitting, you agree to receive calls/texts at the provided number.</p>
+          </form>
+        </div>
+      </div>
+
+      <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+        <p>&copy; {new Date().getFullYear()} Flood Doctor LLC. All rights reserved.</p>
+        <div className="flex gap-6 mt-4 md:mt-0">
+          <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+        </div>
+      </div>
     </footer>
   );
 };

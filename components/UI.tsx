@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronDown, ChevronUp, LucideIcon, Star } from 'lucide-react';
+import { ChevronDown, ChevronUp, LucideIcon, Star, X } from 'lucide-react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'tonal' | 'ghost';
@@ -173,6 +173,62 @@ export const StarRating: React.FC<{ rating?: number }> = ({ rating = 5 }) => {
           className={`w-4 h-4 ${i < rating ? 'fill-yellow-400 text-yellow-400' : 'fill-slate-200 text-slate-200'}`} 
         />
       ))}
+    </div>
+  );
+};
+
+export const Tooltip: React.FC<{ content: React.ReactNode, children: React.ReactNode, className?: string }> = ({ content, children, className = '' }) => {
+  return (
+    <div className={`relative group/tooltip inline-block ${className}`}>
+      {children}
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-56 p-4 bg-slate-800 text-white text-xs rounded-xl shadow-2xl opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all duration-200 z-50 pointer-events-none transform translate-y-1 group-hover/tooltip:translate-y-0">
+        <div className="relative z-10 font-medium leading-relaxed">
+          {content}
+        </div>
+        <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-slate-800"></div>
+      </div>
+    </div>
+  );
+};
+
+export const Modal: React.FC<{
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  children: React.ReactNode;
+}> = ({ isOpen, onClose, title, children }) => {
+  // Lock body scroll
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <div 
+        className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity animate-fade-in" 
+        onClick={onClose}
+      />
+      <div className="relative bg-white rounded-[32px] w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-2xl animate-fade-in-up flex flex-col">
+        <div className="sticky top-0 bg-white/95 backdrop-blur-md px-8 py-5 border-b border-slate-100 flex justify-between items-center z-10 shrink-0">
+          <h3 className="text-xl font-bold text-slate-900 line-clamp-1">{title}</h3>
+          <button 
+            onClick={onClose}
+            className="p-2 bg-slate-100 rounded-full hover:bg-slate-200 transition-colors"
+          >
+            <X className="w-5 h-5 text-slate-500" />
+          </button>
+        </div>
+        <div className="p-8 overflow-y-auto">
+          {children}
+        </div>
+      </div>
     </div>
   );
 };
